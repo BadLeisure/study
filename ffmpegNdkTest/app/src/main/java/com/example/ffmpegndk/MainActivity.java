@@ -11,7 +11,9 @@ public class MainActivity extends AppCompatActivity {
 
     // Used to load the 'ffmpegndk' library on application startup.
     static {
+//        System.loadLibrary("avutil");
         System.loadLibrary("ffmpegndk");
+
     }
 
     private ActivityMainBinding binding;

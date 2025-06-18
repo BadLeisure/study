@@ -28,10 +28,58 @@ add_library(${CMAKE_PROJECT_NAME} SHARED
         # List C/C++ source files with relative paths to this CMakeLists.txt.
         native-lib.cpp)
 
+
+
+#1 设置FFmpeg头文件路径
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+#2 加载动态库
+add_library(avcodec SHARED IMPORTED)
+# 设置动态库路径 ${CMAKE_SOURCE_DIR}表示CmakeList文件目录 ${ANDROID_ABI}表示系统CPU架构
+set_target_properties(avcodec PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/../jniLibs/${ANDROID_ABI}/libavcodec.so)
+
+add_library(avdevice SHARED IMPORTED)
+# 设置动态库路径 ${CMAKE_SOURCE_DIR}表示CmakeList文件目录 ${ANDROID_ABI}表示系统CPU架构
+set_target_properties(avdevice PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/../jniLibs/${ANDROID_ABI}/libavdevice.so)
+
+add_library(avfilter SHARED IMPORTED)
+# 设置动态库路径 ${CMAKE_SOURCE_DIR}表示CmakeList文件目录 ${ANDROID_ABI}表示系统CPU架构
+set_target_properties(avfilter PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/../jniLibs/${ANDROID_ABI}/libavfilter.so)
+
+add_library(avformat SHARED IMPORTED)
+# 设置动态库路径 ${CMAKE_SOURCE_DIR}表示CmakeList文件目录 ${ANDROID_ABI}表示系统CPU架构
+set_target_properties(avformat PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/../jniLibs/${ANDROID_ABI}/libavformat.so)
+
+add_library(avutil SHARED IMPORTED)
+# 设置动态库路径 ${CMAKE_SOURCE_DIR}表示CmakeList文件目录 ${ANDROID_ABI}表示系统CPU架构
+set_target_properties(avutil PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/../jniLibs/${ANDROID_ABI}/libavutil.so)
+
+add_library(postproc SHARED IMPORTED)
+# 设置动态库路径 ${CMAKE_SOURCE_DIR}表示CmakeList文件目录 ${ANDROID_ABI}表示系统CPU架构
+set_target_properties(postproc PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/../jniLibs/${ANDROID_ABI}/libpostproc.so)
+
+add_library(swresample SHARED IMPORTED)
+# 设置动态库路径 ${CMAKE_SOURCE_DIR}表示CmakeList文件目录 ${ANDROID_ABI}表示系统CPU架构
+set_target_properties(swresample PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/../jniLibs/${ANDROID_ABI}/libswresample.so)
+
+add_library(swscale SHARED IMPORTED)
+# 设置动态库路径 ${CMAKE_SOURCE_DIR}表示CmakeList文件目录 ${ANDROID_ABI}表示系统CPU架构
+set_target_properties(swscale PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/../jniLibs/${ANDROID_ABI}/libswscale.so)
+
+
 # Specifies libraries CMake should link to your target library. You
 # can link libraries from various origins, such as libraries defined in this
 # build script, prebuilt third-party libraries, or Android system libraries.
 target_link_libraries(${CMAKE_PROJECT_NAME}
         # List libraries link to the target library
+        avcodec
+        avdevice
+        avfilter
+        avformat
+        avutil
+        postproc
+        swresample
+        swscale
         android
+        OpenSLES
         log)
