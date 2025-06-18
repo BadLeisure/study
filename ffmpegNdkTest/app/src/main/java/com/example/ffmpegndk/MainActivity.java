@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
     static {
 //        System.loadLibrary("avutil");
         System.loadLibrary("ffmpegndk");
+		
 
     }
 
