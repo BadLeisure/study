@@ -112,6 +112,15 @@ public class MainActivity extends AppCompatActivity {
                 byte[] bytes = new byte[bufferFrame.bufferInfo.size];
                 bufferFrame.buffer.get(bytes);
                 mLock.lock();
+                /**
+                 * public static native void arraycopy(
+                 *     Object src,      // 源数组
+                 *     int srcPos,      // 源数组起始位置
+                 *     Object dest,     // 目标数组
+                 *     int destPos,     // 目标数组起始位置
+                 *     int length       // 复制的元素个数
+                 * );
+                 */
                 System.arraycopy(bytes,0,mPCMCache,mPCMCacheSize,bytes.length);
                 mPCMCacheSize += bytes.length;
                 mLock.unlock();
