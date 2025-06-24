@@ -217,6 +217,7 @@ public class KFMP4Demuxer {
 
         ByteBuffer buffer = ByteBuffer.allocateDirect(1000 * 1024);
         try {
+            //将当前采样帧的数据读取到指定的 ByteBuffer 中，返回实际读取的字节数（即帧大小）。
             bufferInfo.size = mVideoMediaExtractor.readSampleData(buffer, 0);
         } catch (Exception e) {
             Log.e(TAG, "readVideoData" + e);
@@ -224,11 +225,14 @@ public class KFMP4Demuxer {
         }
 
         if (bufferInfo.size > 0) {
+            //从 MediaExtractor 获取当前采样帧的标志位。若返回 MediaExtractor.SAMPLE_FLAG_SYNC，表示该帧是 同步帧（即关键帧），告诉 MediaCodec 该输入缓冲区包含 关键帧，解码器会特别处理
             bufferInfo.flags = mVideoMediaExtractor.getSampleFlags() == MediaExtractor.SAMPLE_FLAG_SYNC ? MediaCodec.BUFFER_FLAG_KEY_FRAME : 0;
             bufferInfo.presentationTimeUs = mVideoMediaExtractor.getSampleTime();
+            //调用 advance() 后才能获取下一帧
             mVideoMediaExtractor.advance();
             return buffer;
         } else {
+            //通知解码器数据流已结束。这是处理媒体文件末尾或实时流终止的关键步骤
             bufferInfo.flags = MediaCodec.BUFFER_FLAG_END_OF_STREAM;
             return null;
         }

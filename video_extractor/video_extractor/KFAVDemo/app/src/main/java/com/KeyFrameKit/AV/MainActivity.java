@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                 if(mDemuxer == null){
                     mDemuxer = new KFMP4Demuxer(mDemuxerConfig,mDemuxerListener);
 
-                    // 根据HEVC 分别获取vps sps pps等信息
+                    // 根据HEVC 分别获取vps sps pps等信息 hevc的vps sps pps等信息都保存在csd0里面
                     if(mDemuxer.isHEVC()){
                         try {
                             ByteBuffer extradata = mDemuxer.videoMediaFormat().getByteBuffer("csd-0");
@@ -100,7 +100,9 @@ public class MainActivity extends AppCompatActivity {
                         }  catch (IOException e) {
                             e.printStackTrace();
                         }
-                    }else{
+                    }
+                    //h264的sps保存在csd0里面，pps保存在csd1里面
+                    else{
                         try {
                             ByteBuffer sps = mDemuxer.videoMediaFormat().getByteBuffer("csd-0");
                             byte[] spsBytes = new byte[sps.capacity()];
@@ -126,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
                     while (nextBuffer != null){
                         try {
                             byte[] dst = new byte[bufferInfo.size];
+                            //从当前 ByteBuffer 的 当前位置 开始，读取 dst.length 个字节到 dst 数组中，并将位置指针后移相应的字节数。
                             nextBuffer.get(dst);
                             mStream.write(dst);
                         }  catch (IOException e) {
