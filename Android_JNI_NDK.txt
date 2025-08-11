@@ -1,0 +1,6 @@
+1、Android C++系列：JNI基本操作
+https://developer.aliyun.com/article/1202509
+2、Android 通过JNI调用三方so 高效教程
+https://juejin.cn/post/7355208166248579082
+3、Android - JNI 开发你所需要知道的基础
+https://juejin.cn/post/6844904192780271630?searchId=202508112013381807F480376DFA91E5BC
