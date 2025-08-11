@@ -31,6 +31,8 @@ add_library(${CMAKE_PROJECT_NAME} SHARED
 
 
 #1 设置FFmpeg头文件路径
+#C/C++ 编译器默认只会在系统默认路径（如 /usr/include）和当前源文件目录中查找头文件。
+#如果头文件放在其他目录（如 src/main/cpp/include），必须通过 include_directories 告诉编译器路径
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 #2 加载动态库
